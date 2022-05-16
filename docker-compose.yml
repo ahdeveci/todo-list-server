@@ -1,0 +1,38 @@
+version: '20'
+services:
+  mysqldb:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_RANDOM_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: .
+    restart: always
+    env_file: .env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=$MYSQLDB_HOST
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+      - MYSQL_RANDOM_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    stdin_open: true
+    tty: true
+volumes:
+  db:
