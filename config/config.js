@@ -6,5 +6,5 @@ module.exports = {
         password : process.env.DB_PASSWORD || process.env.MYSQLDB_ROOT_PASSWORD || '',
       //  database : process.env.DB_NAME || 'todolist3',
     },
-    database: process.env.DB_NAME || process.env.MYSQLDB_DATABASE || 'todolist3',
+    database: process.env.DB_NAME || process.env.MYSQLDB_DATABASE || 'todolist',
 }
