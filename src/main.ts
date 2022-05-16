@@ -8,7 +8,7 @@ const middleware = require('./middleware');
 const controller = require('./controller');
 const app = express();
 
-const PORT = process.env.NODE_LOCAL_PORT || process.env.NODE_DOCKER_PORT ||  3555;
+const PORT = process.env.NODE_DOCKER_PORT || process.env.NODE_LOCAL_PORT ||  3555;
 
 app.set("api_secret_key", config.api_secret_key);
 app.use(bodyParser.json());
