@@ -1,0 +1,158 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My User Project CRUD",
+    "description": "My User Project Application API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": {
+    "url": "http://localhost:3555",
+    "description": "Development server"
+  },
+  "host": "localhost:3555",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "To Do List",
+      "description": "API for users in the system"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Login user",
+        "parameters": [
+          {
+            "name": "userbody",
+            "in": "body",
+            "description": "User email and password",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "tags": ["Register"],
+        "summary": "Register a user into the system",
+        "parameters": [
+          {
+            "name": "userData",
+            "in": "body",
+            "description": "User email and password",
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          }
+        }
+      }
+    },
+    "/getTodos": {
+      "get": {
+        "tags": ["Todos"],
+        "summary": "User's todo list",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization token",
+            "schema": {
+              "$ref": "$definitions/Authorization"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "description": "Todo Status blank is all todos, 0 is active and 1 is completed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Login": {
+      "required":["email", "password"],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Token": {
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "Authorization": {
+      "type": "string"
+    },
+    "Register": {
+      "properties": {
+        "userData": {
+          "required":["email", "password"],
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Todos": {
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "data": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}

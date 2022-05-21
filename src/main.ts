@@ -8,7 +8,18 @@ const middleware = require('./middleware');
 const controller = require('./controller');
 const app = express();
 
+const swaggerUi = require('swagger-ui-express'),
+swaggerDocument = require('../swagger.json');
+
+
 const PORT = process.env.NODE_DOCKER_PORT || process.env.NODE_LOCAL_PORT ||  3555;
+
+
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+);
 
 app.set("api_secret_key", config.api_secret_key);
 app.use(bodyParser.json());
@@ -20,6 +31,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
+
 app.use(middleware);
 
 app.post('/login', (req: any, res: any) => {
@@ -40,6 +52,7 @@ app.post('/register', (req: any, res: any) => {
 });
 
 app.get('/getTodos', (req: any, res: any) => {
+    console.info('query=>', req.query);
     controller.todoController(req.user.userId).getTodos(req.query).then(result => {
         res.status(200).send(result);
     }).catch((err) => {
