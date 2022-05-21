@@ -83,13 +83,229 @@
             "name": "Authorization",
             "description": "Authorization token",
             "schema": {
-              "$ref": "$definitions/Authorization"
+              "$ref": "#/definitions/Authorization"
             }
           },
           {
             "in": "query",
             "name": "status",
             "description": "Todo Status blank is all todos, 0 is active and 1 is completed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/updateTodo": {
+      "put": {
+        "tags": ["Todo"],
+        "summary": "Update todo",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "name": "updateData",
+            "in": "body",
+            "description": "Updating todo datas",
+            "schema": {
+              "$ref": "#/definitions/Todo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/setTodoStatus": {
+      "put": {
+        "tags": ["Todo"],
+        "summary": "Change Todo Status",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "name": "updateData",
+            "in": "body",
+            "description": "Updating todo datas",
+            "schema": {
+              "$ref": "#/definitions/TodoStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/deleteTodo": {
+      "delete": {
+        "tags": ["Todo"],
+        "summary": "Delete Todo",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "name": "todoId",
+            "in": "body",
+            "description": "Deleting To Do",
+            "schema": {
+              "$ref": "#/definitions/TodoId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/getGroups": {
+      "get": {
+        "tags": ["Groups"],
+        "summary": "Get User's Todo Groups",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/addGroup": {
+      "post": {
+        "tags": ["Groups"],
+        "summary": "Add To Do Group",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "in": "body",
+            "name": "groupData",
+            "description": "Group data",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/updateGroup": {
+      "put": {
+        "tags": ["Groups"],
+        "summary": "Update To Do Group",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "in": "body",
+            "name": "updateData",
+            "description": "Group data",
+            "schema": {
+              "$ref": "#/definitions/UpdateGroup"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/Todos"
+            }
+          }
+        }
+      }
+    },
+    "/deleteGroup": {
+      "delete": {
+        "tags": ["Groups"],
+        "summary": "Delete To Do Group",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer Authorization token",
+            "schema": {
+              "$ref": "#/definitions/Authorization"
+            }
+          },
+          {
+            "in": "body",
+            "name": "groupId",
+            "description": "Deleting Group Id",
+            "schema": {
+              "$ref": "#/definitions/GroupId"
+            }
           }
         ],
         "responses": {
@@ -151,6 +367,89 @@
         },
         "data": {
           "type": "array"
+        }
+      }
+    },
+    "Todo": {
+      "properties": {
+        "updateData": {
+          "required":["id"],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "todo": {
+              "type": "string"
+            },
+            "groupId": {
+              "type": "number"
+            },
+            "dueDate": {
+              "type": "string"
+            },
+            "status": {
+              "type": "number"
+            },
+            "priority": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "TodoStatus": {
+      "required":["todoId", "status"],
+      "properties": {
+        "todoId": {
+          "type": "number"
+        },
+        "status": {
+          "type": "number"
+        }
+      }
+    },
+    "TodoId": {
+      "required":["todoId"],
+      "properties": {
+        "todoId": {
+          "type": "number"
+        }
+      }
+    },
+    "Group": {
+      "properties": {
+        "groupData": {
+          "type": "object",
+          "properties": {
+            "groupName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "UpdateGroup": {
+      "properties": {
+        "updateData": {
+          "required": ["id", "groupName"],
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "groupName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "GroupId": {
+      "required":["groupId"],
+      "properties": {
+        "groupId": {
+          "type": "number"
         }
       }
     }
