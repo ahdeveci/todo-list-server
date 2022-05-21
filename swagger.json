@@ -2,8 +2,8 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "My User Project CRUD",
-    "description": "My User Project Application API",
+    "title": "My To Do Project CRUD",
+    "description": "My To Do Project Application API",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
@@ -18,7 +18,7 @@
   "tags": [
     {
       "name": "To Do List",
-      "description": "API for users in the system"
+      "description": "API for users To Do in the system"
     }
   ],
   "schemes": ["http"],
