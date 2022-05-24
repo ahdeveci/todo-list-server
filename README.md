@@ -1,6 +1,3 @@
-# Getting Started
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
@@ -17,6 +14,6 @@ If you use Docker run the following command in the project folder
 
 ### `docker-compose up`
 
-
 Swagger UI url 
+
 ### `http://localhost:3555/api-docs`
